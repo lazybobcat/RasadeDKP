@@ -3,7 +3,6 @@ RasadeDKP
 - accès à l'historique
 - bet, résultats du bet, attribution
 - automatisation des transactions
-- 
 ]]--
 
 local addonName, addon = ...;

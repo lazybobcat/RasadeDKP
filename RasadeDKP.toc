@@ -1,10 +1,10 @@
-## Interface: 100107
+## Interface: 100200
 
 ## Title: RasadeDKP
 ## Notes: DKP management tool
 ## Notes-frFR: Addon de gestion des DKP
 ## Author: Tzinn
-## Version: 1.0.0
+## Version: 1.0.1
 ## IconTexture: Interface\AddOns\RasadeDKP\images\logo.tga
 ## SavedVariables: RasadeDKPDB
 ## X-License: WTFPL
