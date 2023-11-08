@@ -1,0 +1,29 @@
+## Interface: 100107
+
+## Title: RasadeDKP
+## Notes: DKP management tool
+## Notes-frFR: Addon de gestion des DKP
+## Author: Tzinn
+## Version: 1.0.0
+## IconTexture: Interface\AddOns\RasadeDKP\images\logo.tga
+## SavedVariables: RasadeDKPDB
+## X-License: WTFPL
+
+embeds.xml
+
+locales/frFR.lua
+
+src/communication.lua
+src/core.lua
+src/database.lua
+src/raft.lua
+src/models/bid.lua
+src/models/movement.lua
+src/models/player.lua
+src/ui/auctions.lua
+src/ui/lootmaster.lua
+src/ui/mainwindow.lua
+src/ui/playerDetails.lua
+src/ui/raid.lua
+src/ui/roster.lua
+src/ui/waitingList.lua
