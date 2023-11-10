@@ -113,7 +113,7 @@ function LazyConsole:Log(message, color, debugstackOffset)
     debugstackOffset = debugstackOffset or 0;
     local caller = debugstack(2 + debugstackOffset, 1, 0);
     if nil ~= caller then
-        file = string.match(caller, '"@([a-zA-Z0-9/.]+)"');
+        file = string.match(caller, '"@(.+)"');
         line = string.match(caller, ":([0-9]+):");
     end
 

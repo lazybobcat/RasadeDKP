@@ -32,10 +32,12 @@ RDKP.Bid = Bid;
 ---@field item string | nil
 ---@field bids Bid[]
 ---@field closed boolean
+---@field cancelled boolean
 local Auction = {
     item = nil,
     bids = {},
     closed = false,
+    cancelled = false,
 }
 Auction.__index = Auction;
 

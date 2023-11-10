@@ -4,7 +4,7 @@
 ## Notes: DKP management tool
 ## Notes-frFR: Addon de gestion des DKP
 ## Author: Tzinn
-## Version: 1.0.1
+## Version: dev
 ## IconTexture: Interface\AddOns\RasadeDKP\images\logo.tga
 ## SavedVariables: RasadeDKPDB
 ## X-License: WTFPL
@@ -13,6 +13,7 @@ embeds.xml
 
 locales/frFR.lua
 
+src/auction.lua
 src/communication.lua
 src/core.lua
 src/database.lua

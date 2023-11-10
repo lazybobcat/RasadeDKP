@@ -70,6 +70,7 @@
         "HelpPlate_Hide",
         "HelpPlate_IsShowing",
         "CooldownFrame_Set",
-        "DK"
+        "DK",
+        "AddonCompartmentFrame"
     ]
 }

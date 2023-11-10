@@ -366,6 +366,14 @@ function Database:CloseAuction(auction, bid)
     self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
 end
 
+---@param auction Auction
+function Database:CancelAuction(auction)
+    auction.closed = true;
+    auction.cancelled = true;
+
+    self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
+end
+
 function Database:ResetPlayerDatabase()
     RDKP.db.global.players = {};
     RDKP.db.global.waitingList = {};

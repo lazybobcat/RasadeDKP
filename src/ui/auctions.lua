@@ -9,14 +9,18 @@ local frame = AceGUI:Create("Window");
 frame:SetTitle(L["UI_AUCTIONSWINDOW_TITLE"]);
 frame:SetWidth(400);
 frame:SetHeight(675);
+frame.frame:SetResizeBounds(400, 200);
 frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 590, -10);
 frame:SetCallback("OnClose", function(widget)
     frame:Hide();
 end)
 frame:SetLayout("Flow");
 
-local previousButton = AceGUI:Create("Button");
-local nextButton = AceGUI:Create("Button");
+local previousButton = AceGUI:Create("Icon");
+local nextButton = AceGUI:Create("Icon");
+local auctionName = AceGUI:Create("Heading");
+local cancelButton = CreateFrame("Button", "RDKPCancelAuction", frame.frame, "UIPanelButtonTemplate");
+local reloadButton = CreateFrame("Button", "RDKPReload", frame.frame, "UIPanelButtonTemplate");
 local auctionGroup = AceGUI:Create("SimpleGroup");
 
 ---@param goToLastPage boolean | nil
@@ -45,10 +49,12 @@ local function RefreshAuctions(goToLastPage)
         auctionGroup:SetFullHeight(true);
         auctionGroup:SetLayout("Flow");
 
-        local auctionName = AceGUI:Create("Heading");
-        auctionName:SetRelativeWidth(1);
-        auctionName:SetText("Enchères pour "..auction.item);
-        auctionGroup:AddChild(auctionName);
+        -- auction title
+        if not auction.cancelled then
+            auctionName:SetText(L["UI_AUCTIONSWINDOW_HEADER_TITLE"](auction.item));
+        else
+            auctionName:SetText(L["UI_AUCTIONSWINDOW_HEADER_TITLE_CANCELLED"](auction.item));
+        end
 
         -- headers
         local bidPlayer = AceGUI:Create("Label");
@@ -106,7 +112,7 @@ local function RefreshAuctions(goToLastPage)
                 if bid.won then
                     local bidWOn = AceGUI:Create("Label");
                     bidWOn:SetRelativeWidth(0.3);
-                    bidWOn:SetText("|cff2BC85AEnchère emportée|r");
+                    bidWOn:SetText(L["UI_AUCTIONSWINDOW_WON"]);
                     bidRow:AddChild(bidWOn);
                 end
             end
@@ -114,29 +120,68 @@ local function RefreshAuctions(goToLastPage)
             auctionGroup:AddChild(bidRow);
         end
 
+        -- cancel button
+        cancelButton:Disable();
+        if auction.closed == false then
+            cancelButton:Enable();
+            cancelButton:SetScript("OnClick", function()
+                RDKP:CancelAuctionedItem(auction);
+            end)
+        end
+
+        -- reload button
+        reloadButton:Disable();
+        if auction.closed == true then
+            reloadButton:Enable();
+            reloadButton:SetScript("OnClick", function()
+                C_UI.Reload();
+            end)
+        end
+
         frame:AddChild(auctionGroup);
     end
 end
 
 -- previous button
-previousButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_PREVIOUS"]);
-previousButton:SetRelativeWidth(0.5);
+previousButton:SetImage("Interface\\Icons\\Misc_arrowleft");
+previousButton:SetImageSize(24, 24);
+previousButton:SetRelativeWidth(0.1);
 previousButton:SetDisabled(true);
 previousButton:SetCallback("OnClick", function()
+    PlaySound(852); -- SOUNDKIT.IG_MAINMENU_OPTION
     currentPage = currentPage - 1;
     RefreshAuctions();
 end);
 frame:AddChild(previousButton);
 
+-- auction name
+auctionName:SetRelativeWidth(0.8);
+frame:AddChild(auctionName);
+
 -- next button
-nextButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_NEXT"]);
-nextButton:SetRelativeWidth(0.5);
+nextButton:SetImage("Interface\\Icons\\Misc_arrowright");
+nextButton:SetImageSize(24, 24);
+nextButton:SetRelativeWidth(0.1);
 nextButton:SetDisabled(true);
 nextButton:SetCallback("OnClick", function()
+    PlaySound(852); -- SOUNDKIT.IG_MAINMENU_OPTION
     currentPage = currentPage + 1;
     RefreshAuctions();
 end);
 frame:AddChild(nextButton);
+
+-- cancel auction button
+cancelButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_CANCEL"]);
+cancelButton:Disable();
+cancelButton:SetPoint("BOTTOMLEFT", frame.frame, "BOTTOMLEFT", 15, 20);
+cancelButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOM", -5, 20);
+
+-- reload button
+reloadButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_RELOAD"]);
+reloadButton:Disable();
+reloadButton:SetPoint("BOTTOMLEFT", frame.frame, "BOTTOM", 5, 20);
+reloadButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOMRIGHT", -15, 20);
+
 
 frame:Hide();
 

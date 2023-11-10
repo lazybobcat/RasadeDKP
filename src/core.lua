@@ -19,23 +19,22 @@ local dbDefaults = {
         waitingList = {},
         archivedPlayers = {},
         auctions = {},
+        minimap = {},
     }
 };
-local acceptBets = false;
-local auctionsRefused = {};
 
 ---@class RDKP: AceAddon
 ---@field Database Database
 ---@field version string
 local RDKP = LibStub("AceAddon-3.0"):NewAddon(addon, addonName, "AceEvent-3.0", "AceConsole-3.0", "AceComm-3.0", "AceTimer-3.0");
+local MinimapIcon = LibStub("LibDBIcon-1.0");
 
 -- CONFIGURATION
 local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata;
-RDKP.version = GetAddOnMetadata("RasadeDKP", "Version");
+RDKP.version = GetAddOnMetadata(addonName, "Version");
 RDKP.COMM_PREFIX = addonName;
 RDKP.COMM_CHANNEL = "RAID";
 RDKP.COMM_CHAT = "CHAT_MSG_RAID";
-RDKP.versionAlertSent = false
 RDKP.CURRENT_PLAYER = UnitName("player");
 RDKP.DEFAULT_DKP_AMOUNT = 100;
 
@@ -86,6 +85,19 @@ function RDKP:OnInitialize()
     -- Register the global variable `MyGlobalFrameName` as a "special frame"
     -- so that it is closed when the escape key is pressed.
     table.insert(UISpecialFrames, "RDKP_Mainwindow");
+
+    ---@diagnostic disable-next-line: missing-fields
+    local RDKPLDB = LibStub("LibDataBroker-1.1"):NewDataObject(addonName, {
+        type = "data source",
+        label = addonName,
+        icon = "Interface\\AddOns\\RasadeDKP\\images\\logo_minimap.tga",
+        OnClick = function() RDKP:OpenMainWindow() end,
+        OnTooltipShow = function(tooltip)
+            tooltip:AddLine(addonName);
+            tooltip:AddLine(L["ADDON_DESCRIPTION"], 1, 1, 1);
+        end,
+    });
+    MinimapIcon:Register(addonName, RDKPLDB, RDKP.db.global.minimap);
 end
 
 function RDKP:OnEnable()
@@ -112,10 +124,7 @@ end
 
 function RDKP:OnSlashCommand(input)
     if nil ~= input and "" ~= input then
-        local command, nextposition = RDKP:GetArgs(input, 1);
-        if "ping" == command then
-            RDKP:SendPing();
-        end
+        -- local command, nextposition = RDKP:GetArgs(input, 1);
     else
         RDKP:OpenMainWindow();
     end
@@ -124,6 +133,8 @@ end
 function RDKP:OnSlashCommandLoot(input)
     if nil ~= input and "" ~= input then
         RDKP:StartAuction(input);
+    else
+        RDKP:OpenAuctionsWindow();
     end
 end
 
@@ -155,63 +166,6 @@ function RDKP:OnChatMessage(event, message, from)
             end
         end
     end
-end
-
-function RDKP:OnWhisperMessage(event, message, from)
-    if false == acceptBets then
-        return;
-    end
-
-    ---@type Auction
-    local auction = RDKP.db.global.auctions[#RDKP.db.global.auctions];
-    local player = self.Database:FindPlayerByCharacterName(from);
-    local dkp = string.match(message, "(%d+)");
-    if nil == auction then
-        return;
-    end
-    if nil == player then
-        RDKP:SendPrivateMessage(L["DEFAULT_PLAYER_UNKNOWN_MESSAGE"], from);
-        return;
-    end
-    if nil == dkp then
-        if nil == auctionsRefused[from] then
-            auctionsRefused[from] = true;
-            RDKP:SendPrivateMessage(L["DEFAULT_DKP_UNKNOWN_MESSAGE"], from);
-        end
-        return;
-    end
-    RDKP.Database:PlaceBid(player, from, dkp);
-    RDKP:SendPrivateMessage(L["DEFAULT_BID_PLACED_MESSAGE"](dkp, auction.item), from);
-end
-
-function RDKP:StartAuction(item)
-    local auction = RDKP.Auction:new{
-        item = item,
-        bids = {},
-        closed = false,
-    };
-    table.insert(RDKP.db.global.auctions, auction);
-    acceptBets = true;
-    RDKP:OpenAuctionsWindow();
-    RDKP:SendChatMessage("============================");
-    RDKP:SendChatMessage(L["RL_MESSAGE_SEND_DKP"]);
-    RDKP:SendChatMessage(item);
-    RDKP:SendChatMessage("============================");
-end
-
----@param auction Auction
----@param bid Bid
-function RDKP:AttributeAuctionedItem(auction, bid)
-    acceptBets = false;
-    RDKP.Database:CloseAuction(auction, bid);
-    -- remove dkp from player
-    RDKP.Database:DebitPlayer(bid.player, bid.character, bid.dkp, auction.item);
-    -- send message to player
-    RDKP:SendPrivateMessage(L["DEFAULT_AUCTION_WON_MESSAGE"](bid.dkp, auction.item), bid.character);
-end
-
-function RDKP:StopAuction()
-    acceptBets = false;
 end
 
 function RDKP:GrantDKPToRaidPlayers(amount)

@@ -14,13 +14,13 @@ function RDKP:CreatePlayerDetails(player, container)
     playerDetails:SetLayout("Flow");
 
     -- delete button
-    local deleteButton = AceGUI:Create("Button");
-    deleteButton:SetText(L["UI_PLAYER_DETAILS_ACTION_DELETE"]);
-    deleteButton:SetRelativeWidth(1);
-    deleteButton:SetCallback("OnClick", function()
-        RDKP.Database:RemovePlayer(player);
-    end);
-    playerDetails:AddChild(deleteButton);
+    -- local deleteButton = AceGUI:Create("Button");
+    -- deleteButton:SetText(L["UI_PLAYER_DETAILS_ACTION_DELETE"]);
+    -- deleteButton:SetRelativeWidth(1);
+    -- deleteButton:SetCallback("OnClick", function()
+    --     RDKP.Database:RemovePlayer(player);
+    -- end);
+    -- playerDetails:AddChild(deleteButton);
 
     local playerName = AceGUI:Create("EditBox");
     playerName:SetLabel(L["UI_PLAYER_DETAILS_NAME"]);
