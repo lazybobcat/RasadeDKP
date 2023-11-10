@@ -34,13 +34,12 @@ local function updateTree()
         text = wlTitle,
         icon = "Interface\\Icons\\Inv_misc_scrollunrolled04b",
         disabled = wlDisabled,
-      },{
+      }, {
         value = "raid",
         text = "Raid",
         icon = "Interface\\Icons\\SPELL_SHADOW_SKULL",
         disabled = not IsInRaid(),
-      },
-      {
+      }, {
         value = "roster",
         text = "Joueurs",
         icon = "Interface\\Icons\\INV_Drink_05",
@@ -69,7 +68,9 @@ local function createTreeGroup(parent)
             RDKP:CreateRaidView(container);
         elseif "roster" == group then
             RDKP:Debug("Roster selected");
-            RDKP:CreateRosterList(RDKP.db.global.players, container);
+            RDKP:CreateRosterList(RDKP.db.global.players, container, function(playerId)
+                treeGroup:SelectByPath("roster", playerId);
+            end);
         elseif group:find("roster", 1, true) and #groupTitle > 1 then
             local groupTitle = {strsplit("\001", group)};
             local id = tonumber(groupTitle[2]);

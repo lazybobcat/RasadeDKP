@@ -5,15 +5,25 @@ local L = LibStub("AceLocale-3.0"):GetLocale(addonName, true);
 
 local AceGUI = LibStub("AceGUI-3.0");
 
-local function CreatePlayerRow(player)
+local function CreatePlayerRow(player, selectPlayerCallback)
     local row = AceGUI:Create("SimpleGroup");
     row:SetLayout("Flow");
     row:SetFullWidth(true);
     row:SetHeight(20);
 
-    local playerName = AceGUI:Create("Label");
+    local playerName = AceGUI:Create("InteractiveLabel");
     playerName:SetRelativeWidth(0.3);
+    playerName:SetColor(1, 0.7, 0);
     playerName:SetText(player.name);
+    playerName:SetCallback("OnClick", function()
+        selectPlayerCallback(player.id);
+    end);
+    playerName:SetCallback("OnEnter", function()
+        playerName:SetColor(1, 0.5, 0.4);
+    end);
+    playerName:SetCallback("OnLeave", function()
+        playerName:SetColor(1, 0.7, 0);
+    end);
     row:AddChild(playerName);
 
     local playerCharacters = AceGUI:Create("Label");
@@ -53,7 +63,7 @@ local function CreateHeaderRow()
     return row;
 end
 
-function RDKP:CreateRosterList(players, container)
+function RDKP:CreateRosterList(players, container, selectPlayerCallback)
     local playerList = AceGUI:Create("SimpleGroup");
     playerList:SetFullWidth(true);
     playerList:SetFullHeight(true);
@@ -65,7 +75,7 @@ function RDKP:CreateRosterList(players, container)
     playerList:AddChild(scrollFrame);
 
     for _, player in ipairs(players) do
-        local row = CreatePlayerRow(player);
+        local row = CreatePlayerRow(player, selectPlayerCallback);
         scrollFrame:AddChild(row);
     end
 
