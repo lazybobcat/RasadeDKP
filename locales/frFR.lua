@@ -24,6 +24,7 @@ if L then
     L["UI_PLAYER_DETAILS_NAME"] = "Nom du joueur";
     L["UI_PLAYER_DETAILS_DKP"] = "DKP du joueur";
     L["UI_PLAYER_DETAILS_CHARACTERS"] = "Personnages";
+    L["UI_PLAYER_DETAILS_STATS"] = function(earned, spent) return "Statistiques : |cffC9221C"..spent.." dkp dépensés|r et |cff2BC85A"..earned.." dkp gagnés|r" end;
     L["UI_PLAYER_DETAILS_MOVEMENTS"] = "Mouvements";
     L["UI_PLAYER_DETAILS_MOVEMENT_credit"] = "|cff2BC85Acredit|r";
     L["UI_PLAYER_DETAILS_MOVEMENT_debit"] = "|cffC9221Cdebit|r";

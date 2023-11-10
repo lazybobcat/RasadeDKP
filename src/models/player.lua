@@ -27,4 +27,30 @@ function Player:new(o)
     return player;
 end
 
+---@param player Player
+---@return number
+function Player:totalCredits(player)
+    local total = 0;
+    for _, movement in ipairs(player.movements) do
+        if movement.type == 'credit' then
+            total = total + movement.amount;
+        end
+    end
+
+    return total;
+end
+
+---@param player Player
+---@return number
+function Player:totalDebits(player)
+    local total = 0;
+    for _, movement in ipairs(player.movements) do
+        if movement.type == 'debit' then
+            total = total + movement.amount;
+        end
+    end
+
+    return total;
+end
+
 RDKP.Player = Player;

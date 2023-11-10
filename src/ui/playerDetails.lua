@@ -22,6 +22,7 @@ function RDKP:CreatePlayerDetails(player, container)
     -- end);
     -- playerDetails:AddChild(deleteButton);
 
+    -- NAME AND DKP
     local playerName = AceGUI:Create("EditBox");
     playerName:SetLabel(L["UI_PLAYER_DETAILS_NAME"]);
     playerName:SetRelativeWidth(0.5);
@@ -47,6 +48,14 @@ function RDKP:CreatePlayerDetails(player, container)
     end);
     playerDetails:AddChild(playerDKP);
 
+
+    -- TOTAL DKP OBTAINED AND SPENT
+    local earnedDKP = AceGUI:Create("Label");
+    earnedDKP:SetRelativeWidth(1);
+    earnedDKP:SetText(L["UI_PLAYER_DETAILS_STATS"](RDKP.Player:totalCredits(player), RDKP.Player:totalDebits(player)));
+    playerDetails:AddChild(earnedDKP);
+
+    -- CHARACTERS
     local playerCharacters = AceGUI:Create("Heading");
     playerCharacters:SetText(L["UI_PLAYER_DETAILS_CHARACTERS"]);
     playerCharacters:SetRelativeWidth(1);
@@ -69,6 +78,8 @@ function RDKP:CreatePlayerDetails(player, container)
         playerDetails:AddChild(removeButton);
     end
 
+
+    -- MOVEMENTS
     local playerMovements = AceGUI:Create("Heading");
     playerMovements:SetText(L["UI_PLAYER_DETAILS_MOVEMENTS"]);
     playerMovements:SetRelativeWidth(1);
