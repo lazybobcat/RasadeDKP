@@ -1,5 +1,10 @@
 # Changelog
 
+## [10.2.0.3] - 2023-11-11
+- export dkp movements as csv
+- fixed scrolling on several windows
+
+
 ## [10.2.0.2] - 2023-11-10
 - loot attribution message in raid channel
 - cancel auction button
