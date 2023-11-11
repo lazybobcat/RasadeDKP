@@ -26,5 +26,9 @@ sed -i "s/## Version: dev/## Version: $1/g" $addonName.toc
 
 ./package.sh $addonName $1
 
+git add CHANGELOG.md
+git commit -m "chore: $1 release"
+git tag -a "v$1" -m "v$1\n\n$changes"
+
 echo "Released $addonName version $1";
 exit 0;

@@ -85,6 +85,7 @@ function RDKP:OnInitialize()
     -- Register the global variable `MyGlobalFrameName` as a "special frame"
     -- so that it is closed when the escape key is pressed.
     table.insert(UISpecialFrames, "RDKP_Mainwindow");
+    table.insert(UISpecialFrames, "RDKP_Exportwindow");
 
     ---@diagnostic disable-next-line: missing-fields
     local RDKPLDB = LibStub("LibDataBroker-1.1"):NewDataObject(addonName, {
@@ -124,7 +125,11 @@ end
 
 function RDKP:OnSlashCommand(input)
     if nil ~= input and "" ~= input then
-        -- local command, nextposition = RDKP:GetArgs(input, 1);
+        local command, nextposition = RDKP:GetArgs(input, 1);
+        if 'export' == command then
+            local csv = RDKP:ExportDataAsCSV();
+            RDKP:OpenExportWindow(csv);
+        end
     else
         RDKP:OpenMainWindow();
     end

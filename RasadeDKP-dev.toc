@@ -17,11 +17,13 @@ src/auction.lua
 src/communication.lua
 src/core.lua
 src/database.lua
+src/export.lua
 src/raft.lua
 src/models/bid.lua
 src/models/movement.lua
 src/models/player.lua
 src/ui/auctions.lua
+src/ui/exportwindow.lua
 src/ui/lootmaster.lua
 src/ui/mainwindow.lua
 src/ui/playerDetails.lua

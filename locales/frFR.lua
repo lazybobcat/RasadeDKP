@@ -12,6 +12,8 @@ if L then
 
     L["UI_MAINWINDOW_TITLE"] = "RasadeDKP";
     L["UI_MAINWINDOW_STATUS"] = "Work in progress...";
+    L["UI_MAINWINDOW_AUCTIONS"] = "Ouvrir les enchères";
+    L["UI_MAINWINDOW_EXPORT_CSV"] = "Export CSV";
     L["UI_WL_HEADER_CHARACTER"] = "|cffffd700Personnage|r";
     L["UI_WL_HEADER_PLAYER"] = "|cffffd700Joueur|r";
     L["UI_WL_HEADER_DKP"] = "|cffffd700DKP|r";
@@ -49,8 +51,17 @@ if L then
     L["UI_AUCTIONSWINDOW_HEADER_DKP"] = "|cffffd700DKP dispo|r";
     L["UI_AUCTIONSWINDOW_WON"] = "|cff2BC85AEnchère emportée|r";
     
+    L["UI_EXPORTWINDOW_TITLE"] = "Exporter les données";
+
     L["MOVEMENT_HARD_SET"] = "Solde défini via l'interface de l'addon";
 
+    L["CSV_H_formattedDate"] = "Date";
+    L["CSV_H_type"] = "Type";
+    L["CSV_H_player"] = "Joueur";
+    L["CSV_H_character"] = "Personnage";
+    L["CSV_H_amount"] = "Montant";
+    L["CSV_H_reason"] = "Raison";
+    L["CSV_H_itemLink"] = "Lien de l'objet";
     --
     L["RL_MESSAGE_SEND_DKP"] = "Envoyez vos DKP en MP pour :";
     L["RL_MESSAGE_RAID_PARTICIPATION"] = function(dkp) return "Tous les joueurs ont reçu "..dkp.." pour leur participation au raid" end;

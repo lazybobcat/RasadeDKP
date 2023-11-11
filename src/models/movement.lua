@@ -14,7 +14,7 @@ local Movement = {
     date = 0,
     type = "debit", -- "debit" or "credit"
     amount = 0,
-    item = 0,
+    item = nil,
     reason = '',
     character = '',
 }

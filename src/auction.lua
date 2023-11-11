@@ -52,10 +52,14 @@ end
 ---@param auction Auction
 ---@param bid Bid
 function RDKP:AttributeAuctionedItem(auction, bid)
+    local player = RDKP.Database:FindPlayer(bid.player.id);
+    if nil == player then
+        return;
+    end
     acceptBets = false;
     RDKP.Database:CloseAuction(auction, bid);
     -- remove dkp from player
-    RDKP.Database:DebitPlayer(bid.player, bid.character, bid.dkp, auction.item);
+    RDKP.Database:DebitPlayer(player, bid.character, bid.dkp, auction.item, auction.item);
     -- send message to player
     RDKP:SendPrivateMessage(L["DEFAULT_AUCTION_WON_MESSAGE"](bid.dkp, auction.item), bid.character);
     RDKP:SendChatMessage(L["RL_MESSAGE_AUCTION_ENDED"](auction.item, bid.character));

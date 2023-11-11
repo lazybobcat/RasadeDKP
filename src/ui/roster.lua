@@ -64,20 +64,16 @@ local function CreateHeaderRow()
 end
 
 function RDKP:CreateRosterList(players, container, selectPlayerCallback)
-    local playerList = AceGUI:Create("SimpleGroup");
-    playerList:SetFullWidth(true);
-    playerList:SetFullHeight(true);
-    playerList:SetLayout("Fill");
-
     local scrollFrame = AceGUI:Create("ScrollFrame");
     scrollFrame:SetLayout("Flow");
+    scrollFrame:SetFullWidth(true);
+    scrollFrame:SetFullHeight(true);
     scrollFrame:AddChild(CreateHeaderRow());
-    playerList:AddChild(scrollFrame);
 
     for _, player in ipairs(players) do
         local row = CreatePlayerRow(player, selectPlayerCallback);
         scrollFrame:AddChild(row);
     end
 
-    container:AddChild(playerList);
+    container:AddChild(scrollFrame);
 end

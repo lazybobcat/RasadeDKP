@@ -256,7 +256,7 @@ function Database:AddPlayerToWaitingList(charName)
     end
 
     -- charName = "Shadz-Archimonde";
-    local playerName = string.match(charName, "(.*)-.*");
+    local playerName = string.match(charName, "(.*)-.*") or charName;
     local inWL = self:FindWaitingByName(playerName);
     if false ~= inWL then
         return false;
@@ -342,8 +342,13 @@ function Database:PlaceBid(player, character, dkp)
     end
 
     if false == found then
+        -- we copy the player to avoid modifying the original and keep too many informations in the database
+        local copy = {};
+        copy.id = player.id;
+        copy.name = player.name;
+        copy.dkp = player.dkp;
         local bid = RDKP.Bid:new{
-            player = player,
+            player = copy,
             character = character,
             dkp = dkp,
             won = false,
@@ -378,8 +383,10 @@ function Database:ResetPlayerDatabase()
     RDKP.db.global.players = {};
     RDKP.db.global.waitingList = {};
     RDKP.db.global.archivedPlayers = {};
+    RDKP.db.global.auctions = {};
     self.callbacks:Fire("PlayersUpdate", RDKP.db.global.players);
     self.callbacks:Fire("WaitingListUpdate", RDKP.db.global.waitingList);
+    self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
 end
 
 RDKP.Database = Database;

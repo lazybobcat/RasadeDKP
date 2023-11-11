@@ -4,7 +4,7 @@ local RDKP = addon;
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName, true);
 
 local AceGUI = LibStub("AceGUI-3.0");
-local isOpened = false;
+local opened = false;
 local tree = {};
 local treeSelectedItem = nil;
 
@@ -94,28 +94,24 @@ local function createTreeGroup(parent)
     parent:AddChild(treeGroup);
 end
 
-function RDKP:OpenMainWindow()
-    -- Don't open multiple windows
-    if isOpened then return end
+local frame = AceGUI:Create("Window");
+frame:Hide();
 
-    local frame = AceGUI:Create("Window");
+function InitMainWindow()
     frame:SetTitle(L["UI_MAINWINDOW_TITLE"]);
     frame:SetStatusText(L["UI_MAINWINDOW_STATUS"]);
     frame:SetWidth(960);
     frame:SetHeight(675);
+    frame.frame:SetResizeBounds(600, 350);
     frame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", 0, -10);
     frame:SetCallback("OnClose", function(widget)
-        RDKP.Database:UnregisterPlayersUpdated("mainwindow_OpenMainWindow");
-        RDKP.Database:UnregisterWaitingListUpdated("mainwindow_OpenMainWindow");
-        frame:ReleaseChildren();
-        AceGUI:Release(widget);
-        isOpened = false;
+        frame:Hide();
     end)
     frame:SetLayout("Flow");
 
     local iconFrame = CreateFrame("Frame", nil, frame.frame);
     iconFrame:SetFrameStrata("TOOLTIP")
-	iconFrame:SetFrameLevel(100)
+    iconFrame:SetFrameLevel(100)
     iconFrame:SetWidth(100);
     iconFrame:SetHeight(100);
     local icon = iconFrame:CreateTexture(nil, "OVERLAY", nil);
@@ -126,26 +122,48 @@ function RDKP:OpenMainWindow()
     iconFrame:Show();
 
     local topGroup = AceGUI:Create("SimpleGroup");
-    topGroup:SetFullWidth(true);
-    topGroup:SetLayout("Flow");
-
-    local emptyArea = AceGUI:Create("SimpleGroup");
-    emptyArea:SetWidth(50);
-    emptyArea:SetHeight(50);
-    emptyArea:SetLayout("Fill");
-    topGroup:AddChild(emptyArea);
+    topGroup:SetHeight(28);
+    topGroup:SetLayout("Fill");
 
     -- local share = AceGUI:Create("Button");
     -- share:SetText("Share data (todo)");
     -- share:SetDisabled(true);
     -- topGroup:AddChild(share);
 
-    local auctions = AceGUI:Create("Button");
-    auctions:SetText("Ouvrir les enchères");
-    auctions:SetCallback("OnClick", function()
+    -- Auctions button
+    local auctions = CreateFrame("Button", "RDKPOpenAuctions", frame.frame, "UIPanelButtonTemplate");
+    auctions:SetText(L["UI_MAINWINDOW_AUCTIONS"]);
+    auctions:SetPoint("TOPLEFT", 75, -30);
+    auctions:SetHeight(24);
+    local text = auctions:GetFontString();
+    if nil ~= text then
+        text:ClearAllPoints();
+        text:SetPoint("TOPLEFT", 15, -1);
+        text:SetPoint("BOTTOMRIGHT", -15, 1);
+        text:SetJustifyV("MIDDLE");
+        auctions:SetWidth(text:GetStringWidth() + 30);
+    end
+    auctions:SetScript("OnClick", function()
         RDKP:OpenAuctionsWindow();
     end);
-    topGroup:AddChild(auctions);
+
+    -- Export button
+    local export = CreateFrame("Button", "RDKPOpenExport", frame.frame, "UIPanelButtonTemplate");
+    export:SetText(L["UI_MAINWINDOW_EXPORT_CSV"]);
+    export:SetPoint("TOPRIGHT", -15, -30);
+    export:SetHeight(24);
+    text = export:GetFontString();
+    if nil ~= text then
+        text:ClearAllPoints();
+        text:SetPoint("TOPLEFT", 15, -1);
+        text:SetPoint("BOTTOMRIGHT", -15, 1);
+        text:SetJustifyV("MIDDLE");
+        export:SetWidth(text:GetStringWidth() + 30);
+    end
+    export:SetScript("OnClick", function()
+        local csv = RDKP:ExportDataAsCSV();
+        RDKP:OpenExportWindow(csv);
+    end);
 
     -- local resetDB = AceGUI:Create("Button");
     -- resetDB:SetText("Reset DB");
@@ -153,7 +171,6 @@ function RDKP:OpenMainWindow()
     --     RDKP.Database:ResetPlayerDatabase();
     -- end);
     -- topGroup:AddChild(resetDB);
-
 
     local mainGroup = AceGUI:Create("SimpleGroup");
     mainGroup:SetFullHeight(true);
@@ -176,6 +193,13 @@ function RDKP:OpenMainWindow()
     frame:AddChild(topGroup);
     frame:AddChild(mainGroup);
 
-    isOpened = true;
     _G["RDKP_Mainwindow"] = frame.frame;
+end
+
+function RDKP:OpenMainWindow()
+    if not opened then
+        InitMainWindow();
+        opened = true;
+    end
+    frame:Show();
 end

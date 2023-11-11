@@ -8,7 +8,7 @@ local AceGUI = LibStub("AceGUI-3.0");
 ---@param player Player
 ---@param container AceGUIContainer 
 function RDKP:CreatePlayerDetails(player, container)
-    local playerDetails = AceGUI:Create("SimpleGroup");
+    local playerDetails = AceGUI:Create("ScrollFrame");
     playerDetails:SetFullWidth(true);
     playerDetails:SetFullHeight(true);
     playerDetails:SetLayout("Flow");
