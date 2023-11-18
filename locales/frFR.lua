@@ -45,6 +45,7 @@ if L then
     L["UI_AUCTIONSWINDOW_ACTION_CANCEL"] = "Annuler l'enchère";
     L["UI_AUCTIONSWINDOW_ACTION_RELOAD"] = "Sauvegarder les données";
     L["UI_AUCTIONSWINDOW_HEADER_TITLE"] = function (item) return item end;
+    L["UI_AUCTIONSWINDOW_HEADER_QUANTITY"] = function (qty, remaining) return "Quantité de cet item à distribuer : "..remaining.."/"..qty end;
     L["UI_AUCTIONSWINDOW_HEADER_TITLE_CANCELLED"] = function (item) return item.." (|cffC9221Cannulée|r)" end;
     L["UI_AUCTIONSWINDOW_HEADER_PLAYER"] = "|cffffd700Joueur|r";
     L["UI_AUCTIONSWINDOW_HEADER_BID"] = "|cffffd700Enchère|r";

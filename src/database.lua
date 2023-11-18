@@ -364,9 +364,15 @@ end
 
 ---@param auction Auction
 ---@param bid Bid
-function Database:CloseAuction(auction, bid)
-    auction.closed = true;
+function Database:BidWon(auction, bid)
     bid.won = true;
+
+    self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
+end
+
+---@param auction Auction
+function Database:CloseAuction(auction)
+    auction.closed = true;
 
     self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
 end

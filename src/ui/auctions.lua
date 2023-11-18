@@ -56,6 +56,12 @@ local function RefreshAuctions(goToLastPage)
             auctionName:SetText(L["UI_AUCTIONSWINDOW_HEADER_TITLE_CANCELLED"](auction.item));
         end
 
+        -- quantity
+        local quantity = AceGUI:Create("Label");
+        quantity:SetRelativeWidth(1);
+        quantity:SetText(L["UI_AUCTIONSWINDOW_HEADER_QUANTITY"](auction.quantity or 1, auction.lootRemaining or 0));
+        auctionGroup:AddChild(quantity);
+
         -- headers
         local bidPlayer = AceGUI:Create("Label");
         bidPlayer:SetRelativeWidth(0.4);
@@ -100,7 +106,7 @@ local function RefreshAuctions(goToLastPage)
             bidRow:AddChild(dkpPlayer);
 
             -- ok button
-            if auction.closed == false then
+            if auction.closed == false and bid.won == false then
                 local okButton = AceGUI:Create("Button");
                 okButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_OK"]);
                 okButton:SetRelativeWidth(0.3);

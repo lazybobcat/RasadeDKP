@@ -30,11 +30,15 @@ RDKP.Bid = Bid;
 
 ---@class Auction
 ---@field item string | nil
+---@field quantity number
+---@field lootRemaining number
 ---@field bids Bid[]
 ---@field closed boolean
 ---@field cancelled boolean
 local Auction = {
     item = nil,
+    quantity = 1,
+    lootRemaining = 1,
     bids = {},
     closed = false,
     cancelled = false,

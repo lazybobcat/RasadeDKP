@@ -137,7 +137,8 @@ end
 
 function RDKP:OnSlashCommandLoot(input)
     if nil ~= input and "" ~= input then
-        RDKP:StartAuction(input);
+        local item, qty = RDKP:GetArgs(input, 2);
+        RDKP:StartAuction(item, qty);
     else
         RDKP:OpenAuctionsWindow();
     end

@@ -33,9 +33,13 @@ function RDKP:OnWhisperMessage(event, message, from)
     RDKP:SendPrivateMessage(L["DEFAULT_BID_PLACED_MESSAGE"](dkp, auction.item), from);
 end
 
-function RDKP:StartAuction(item)
+function RDKP:StartAuction(item, quantity)
+    quantity = quantity or 1;
+    quantity = tonumber(quantity) or 1;
     local auction = RDKP.Auction:new{
         item = item,
+        quantity = quantity,
+        lootRemaining = quantity,
         bids = {},
         closed = false,
         cancelled = false,
@@ -56,8 +60,16 @@ function RDKP:AttributeAuctionedItem(auction, bid)
     if nil == player then
         return;
     end
-    acceptBets = false;
-    RDKP.Database:CloseAuction(auction, bid);
+
+    RDKP.Database:BidWon(auction, bid);
+    if auction.lootRemaining <= 1 then
+        auction.lootRemaining = 0;
+        acceptBets = false;
+        RDKP.Database:CloseAuction(auction);
+    else
+        auction.lootRemaining = auction.lootRemaining - 1;
+    end
+    
     -- remove dkp from player
     RDKP.Database:DebitPlayer(player, bid.character, bid.dkp, auction.item, auction.item);
     -- send message to player
