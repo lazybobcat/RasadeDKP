@@ -20,7 +20,7 @@ local previousButton = AceGUI:Create("Icon");
 local nextButton = AceGUI:Create("Icon");
 local auctionName = AceGUI:Create("Heading");
 local cancelButton = CreateFrame("Button", "RDKPCancelAuction", frame.frame, "UIPanelButtonTemplate");
-local reloadButton = CreateFrame("Button", "RDKPReload", frame.frame, "UIPanelButtonTemplate");
+local tradeButton = CreateFrame("Button", "RDKPTrade", frame.frame, "UIPanelButtonTemplate");
 local auctionGroup = AceGUI:Create("SimpleGroup");
 
 ---@param goToLastPage boolean | nil
@@ -135,12 +135,12 @@ local function RefreshAuctions(goToLastPage)
             end)
         end
 
-        -- reload button
-        reloadButton:Disable();
+        -- open trade window button
+        tradeButton:Disable();
         if auction.closed == true then
-            reloadButton:Enable();
-            reloadButton:SetScript("OnClick", function()
-                C_UI.Reload();
+            tradeButton:Enable();
+            tradeButton:SetScript("OnClick", function()
+                RDKP:OpenTradesWindow(auction);
             end)
         end
 
@@ -182,11 +182,11 @@ cancelButton:Disable();
 cancelButton:SetPoint("BOTTOMLEFT", frame.frame, "BOTTOMLEFT", 15, 20);
 cancelButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOM", -5, 20);
 
--- reload button
-reloadButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_RELOAD"]);
-reloadButton:Disable();
-reloadButton:SetPoint("BOTTOMLEFT", frame.frame, "BOTTOM", 5, 20);
-reloadButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOMRIGHT", -15, 20);
+-- trades button
+tradeButton:SetText(L["UI_AUCTIONSWINDOW_ACTION_TRADES"]);
+tradeButton:Disable();
+tradeButton:SetPoint("BOTTOMLEFT", frame.frame, "BOTTOM", 5, 20);
+tradeButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOMRIGHT", -15, 20);
 
 
 frame:Hide();

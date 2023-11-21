@@ -30,13 +30,23 @@ function Database:RegisterWaitingListUpdated(id, callback, ...)
 end
 
 ---@param id string
----@param callback fun(event: string, players: table)
+---@param callback fun(event: string, auction: Auction)
 function Database:RegisterAuctionsUpdated(id, callback, ...)
     if nil ~= arg and 0 < #arg then
         RDKP:Debug(arg);
         Database.RegisterCallback(id, "AuctionsUpdate", callback, unpack(arg));
     end
     Database.RegisterCallback(id, "AuctionsUpdate", callback);
+end
+
+---@param id string
+---@param callback fun(event: string, bid: Bid, item: string)
+function Database:RegisterBidWon(id, callback, ...)
+    if nil ~= arg and 0 < #arg then
+        RDKP:Debug(arg);
+        Database.RegisterCallback(id, "BidWon", callback, unpack(arg));
+    end
+    Database.RegisterCallback(id, "BidWon", callback);
 end
 
 ---@param id string
@@ -367,6 +377,7 @@ end
 function Database:BidWon(auction, bid)
     bid.won = true;
 
+    self.callbacks:Fire("BidWon", bid, auction.item);
     self.callbacks:Fire("AuctionsUpdate", RDKP.db.global.auctions);
 end
 

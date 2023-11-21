@@ -42,8 +42,8 @@ if L then
 
     L["UI_AUCTIONSWINDOW_TITLE"] = "Enchères";
     L["UI_AUCTIONSWINDOW_ACTION_OK"] = "|cffffd700Attrib.|r";
-    L["UI_AUCTIONSWINDOW_ACTION_CANCEL"] = "Annuler l'enchère";
-    L["UI_AUCTIONSWINDOW_ACTION_RELOAD"] = "Sauvegarder les données";
+    L["UI_AUCTIONSWINDOW_ACTION_CANCEL"] = "Annuler";
+    L["UI_AUCTIONSWINDOW_ACTION_TRADES"] = "Récap.";
     L["UI_AUCTIONSWINDOW_HEADER_TITLE"] = function (item) return item end;
     L["UI_AUCTIONSWINDOW_HEADER_QUANTITY"] = function (qty, remaining) return "Quantité de cet item à distribuer : "..remaining.."/"..qty end;
     L["UI_AUCTIONSWINDOW_HEADER_TITLE_CANCELLED"] = function (item) return item.." (|cffC9221Cannulée|r)" end;
@@ -52,6 +52,8 @@ if L then
     L["UI_AUCTIONSWINDOW_HEADER_DKP"] = "|cffffd700DKP dispo|r";
     L["UI_AUCTIONSWINDOW_WON"] = "|cff2BC85AEnchère emportée|r";
     
+    L["UI_TRADESWINDOW_ACTION_VALIDATE"] = "Valider les échanges";
+
     L["UI_EXPORTWINDOW_TITLE"] = "Exporter les données";
 
     L["MOVEMENT_HARD_SET"] = "Solde défini via l'interface de l'addon";

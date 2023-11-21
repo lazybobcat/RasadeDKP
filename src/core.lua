@@ -20,6 +20,8 @@ local dbDefaults = {
         archivedPlayers = {},
         auctions = {},
         minimap = {},
+        ---@type {bid: Bid, character: string, item: string, check: any}[]
+        trades = {}
     }
 };
 
@@ -111,6 +113,8 @@ function RDKP:OnEnable()
     RDKP:RegisterEvent(RDKP.COMM_CHAT, "OnChatMessage");
     RDKP:RegisterEvent("CHAT_MSG_RAID_LEADER", "OnChatMessage");
     RDKP:RegisterEvent("CHAT_MSG_WHISPER", "OnWhisperMessage");
+    RDKP:RegisterEvent("TRADE_ACCEPT_UPDATE", "OnTradeAcceptUpdate");
+    RDKP:RegisterEvent("TRADE_CLOSED", "OnTradeClosed");
 
     -- say hello
     RDKP.Database:Load();

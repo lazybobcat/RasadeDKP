@@ -22,6 +22,7 @@ src/raft.lua
 src/models/bid.lua
 src/models/movement.lua
 src/models/player.lua
+src/ui/ace3/transparentWindow.lua
 src/ui/auctions.lua
 src/ui/exportwindow.lua
 src/ui/lootmaster.lua
@@ -29,4 +30,5 @@ src/ui/mainwindow.lua
 src/ui/playerDetails.lua
 src/ui/raid.lua
 src/ui/roster.lua
+src/ui/trades.lua
 src/ui/waitingList.lua
