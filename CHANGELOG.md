@@ -1,5 +1,10 @@
 # Changelog
 
+## [10.2.0.4] - 2023-11-21
+- quick trade window after loot auctions are done
+- auction multiple identical items at the same time
+
+
 ## [10.2.0.3] - 2023-11-11
 - export dkp movements as csv
 - fixed scrolling on several windows
