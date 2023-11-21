@@ -82,7 +82,7 @@ local function createTreeGroup(parent)
         else
             local icon = AceGUI:Create("Label");
             icon:SetText("Selected: " .. group);
-            icon:SetImage("Interface\\AddOns\\RasadeDKP\\images\\logo_medium.tga");
+            icon:SetImage("Interface\\AddOns\\RasadeDKP\\media\\images\\logo_medium.tga");
             icon:SetImageSize(128, 128);
             container:AddChild(icon);
         end
@@ -115,7 +115,7 @@ function InitMainWindow()
     iconFrame:SetWidth(100);
     iconFrame:SetHeight(100);
     local icon = iconFrame:CreateTexture(nil, "OVERLAY", nil);
-    icon:SetTexture("Interface\\AddOns\\RasadeDKP\\images\\logo_medium.tga");
+    icon:SetTexture("Interface\\AddOns\\RasadeDKP\\media\\images\\logo_medium.tga");
     icon:SetAllPoints(iconFrame);
     iconFrame.texture = icon;
     iconFrame:SetPoint("TOPLEFT", -20, 20);

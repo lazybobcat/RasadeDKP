@@ -199,9 +199,6 @@ do
 		local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
 		close:SetPoint("TOPRIGHT", -8, -5)
 		close:SetScript("OnClick", closeOnClick)
-        close:SetNormalTexture("Interface\\AddOns\\"..addonName.."\\images\\close.tga")
-        close:SetHighlightTexture("Interface\\AddOns\\"..addonName.."\\images\\close.tga", "ADD")
-        close:SetPushedTexture("Interface\\AddOns\\"..addonName.."\\images\\close.tga");
         close:SetSize(16, 16)
 		self.closebutton = close
 		close.obj = self

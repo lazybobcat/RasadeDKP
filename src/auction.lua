@@ -30,6 +30,9 @@ function RDKP:OnWhisperMessage(event, message, from)
         return;
     end
     RDKP.Database:PlaceBid(player, from, dkp);
+    if tonumber(dkp) <= tonumber(player.dkp) and tonumber(dkp) >= 100 then
+        PlaySoundFile("Interface\\AddOns\\"..addonName.."\\media\\sound\\monster_bis.ogg", "Master");
+    end
     RDKP:SendPrivateMessage(L["DEFAULT_BID_PLACED_MESSAGE"](dkp, auction.item), from);
 end
 

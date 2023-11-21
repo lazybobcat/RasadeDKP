@@ -5,7 +5,7 @@
 ## Notes-frFR: Addon de gestion des DKP
 ## Author: Tzinn
 ## Version: dev
-## IconTexture: Interface\AddOns\RasadeDKP\images\logo.tga
+## IconTexture: Interface\AddOns\RasadeDKP\media\images\logo.tga
 ## SavedVariables: RasadeDKPDB
 ## X-License: WTFPL
 

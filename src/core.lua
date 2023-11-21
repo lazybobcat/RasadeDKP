@@ -93,7 +93,7 @@ function RDKP:OnInitialize()
     local RDKPLDB = LibStub("LibDataBroker-1.1"):NewDataObject(addonName, {
         type = "data source",
         label = addonName,
-        icon = "Interface\\AddOns\\RasadeDKP\\images\\logo_minimap.tga",
+        icon = "Interface\\AddOns\\RasadeDKP\\media\\images\\logo_minimap.tga",
         OnClick = function() RDKP:OpenMainWindow() end,
         OnTooltipShow = function(tooltip)
             tooltip:AddLine(addonName);
