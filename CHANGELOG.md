@@ -1,5 +1,9 @@
 # Changelog
 
+## [10.2.0.5] - 2023-11-23
+- monster bis sound effect on big bid
+
+
 ## [10.2.0.4] - 2023-11-21
 - quick trade window after loot auctions are done
 - auction multiple identical items at the same time
