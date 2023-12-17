@@ -1,5 +1,9 @@
 # Changelog
 
+## [12.2.0.6] - 2023-12-17
+- raid warning when an auction begins
+
+
 ## [10.2.0.5] - 2023-11-23
 - monster bis sound effect on big bid
 
