@@ -1,5 +1,9 @@
 # Changelog
 
+## [11.0.0.1] - 2024-09-09
+- 11.0 update
+
+
 ## [12.2.0.6] - 2023-12-17
 - raid warning when an auction begins
 
