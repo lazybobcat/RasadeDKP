@@ -134,6 +134,21 @@ function RDKP:OnSlashCommand(input)
         if 'export' == command then
             local csv = RDKP:ExportDataAsCSV();
             RDKP:OpenExportWindow(csv);
+        elseif 'reset' == command then
+            -- ask for confirmation
+            StaticPopupDialogs["RESET_DB"] = {
+                text = L["UI_RESET_DB_CONFIRM"],
+                button1 = L["UI_RESET_DB_CONFIRM_YES"],
+                button2 = L["UI_RESET_DB_CONFIRM_NO"],
+                OnAccept = function()
+                    RDKP.Database:ResetPlayerDatabase();
+                end,
+                timeout = 0,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+            };
+            StaticPopup_Show("RESET_DB");
         end
     else
         RDKP:OpenMainWindow();

@@ -165,14 +165,6 @@ function InitMainWindow()
         RDKP:OpenExportWindow(csv);
     end);
 
-    local resetDB = CreateFrame("Button", "RDKPReset", frame.frame, "UIPanelButtonTemplate");
-    resetDB:SetText("Reset DB");
-    resetDB:SetPoint("TOPLEFT", 275, -30);
-    resetDB:SetHeight(24);
-    resetDB:SetScript("OnClick", function()
-        RDKP.Database:ResetPlayerDatabase();
-    end);
-
     local mainGroup = AceGUI:Create("SimpleGroup");
     mainGroup:SetFullHeight(true);
     mainGroup:SetFullWidth(true);

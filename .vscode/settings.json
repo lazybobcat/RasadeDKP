@@ -79,7 +79,9 @@
         "WorldMapFrame",
         "CreateFramePool",
         "MapCanvasDataProviderMixin",
-        "MapCanvasPinMixin"
+        "MapCanvasPinMixin",
+        "StaticPopupDialogs",
+        "StaticPopup_Show"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {
