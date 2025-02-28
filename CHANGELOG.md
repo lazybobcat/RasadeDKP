@@ -1,5 +1,9 @@
 # Changelog
 
+## [11.1.0.2] - 2025-02-28
+- add command to reset the player database
+
+
 ## [11.1.0.1] - 2025-02-28
 - update for WoW 11.1.0
 
