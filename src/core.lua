@@ -3,10 +3,10 @@ RasadeDKP
 - accès à l'historique
 - bet, résultats du bet, attribution
 - automatisation des transactions
-]]--
+]] --
 
 local addonName, addon = ...;
-local DF = _G ["DetailsFramework"]
+local DF = _G["DetailsFramework"]
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName, true);
 
 -- DEFAULTS
@@ -28,7 +28,8 @@ local dbDefaults = {
 ---@class RDKP: AceAddon
 ---@field Database Database
 ---@field version string
-local RDKP = LibStub("AceAddon-3.0"):NewAddon(addon, addonName, "AceEvent-3.0", "AceConsole-3.0", "AceComm-3.0", "AceTimer-3.0");
+local RDKP = LibStub("AceAddon-3.0"):NewAddon(addon, addonName, "AceEvent-3.0", "AceConsole-3.0", "AceComm-3.0",
+    "AceTimer-3.0");
 local MinimapIcon = LibStub("LibDBIcon-1.0");
 
 -- CONFIGURATION
@@ -64,13 +65,13 @@ local options = {
         vers = {
             order = 2,
             type = "description",
-            name = "|cffffd700    "..L["ADDON_VERSION"].."|r "..RDKP.version,
+            name = "|cffffd700    " .. L["ADDON_VERSION"] .. "|r " .. RDKP.version,
             cmdHidden = true
         },
         desc = {
             order = 3,
             type = "description",
-            name = "|cffffd700    "..L["ADDON_AUTHOR"].."|r Tzinn\n\n",
+            name = "|cffffd700    " .. L["ADDON_AUTHOR"] .. "|r Tzinn\n\n",
             cmdHidden = true
         },
     }
@@ -169,10 +170,10 @@ function RDKP:OnChatMessage(event, message, from)
         else
             local added = RDKP.Database:AddPlayerToWaitingList(from);
             if added then
-                self:Debug("Player ".. from .." added to waiting list");
+                self:Debug("Player " .. from .. " added to waiting list");
                 RDKP:SendPrivateMessage(L["DEFAULT_WAITING_LIST_MESSAGE"], from);
             else
-                self:Debug("Player ".. from .." already in waiting list");
+                self:Debug("Player " .. from .. " already in waiting list");
             end
         end
     end

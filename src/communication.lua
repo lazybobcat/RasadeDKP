@@ -9,12 +9,20 @@ RDKP.Messages = {};
 -- send comm message to all addon owners in the raid
 function RDKP:SendAddonMessage(message)
     RDKP:SendCommMessage(RDKP.COMM_PREFIX, message, RDKP.COMM_CHANNEL);
-    RDKP:Debug("Comm Sent // ".. message);
+    RDKP:Debug("Comm Sent // " .. message);
 end
 
 -- send message in configured chat
 function RDKP:SendChatMessage(message)
     SendChatMessage(message, RDKP.COMM_CHANNEL);
+end
+
+-- send message in raid warning
+function RDKP:SendRaidWarningMessage(message)
+    local isAssistant = UnitIsGroupAssistant("player") or UnitIsGroupLeader("player");
+    if isAssistant then
+        SendChatMessage(message, "RAID_WARNING");
+    end
 end
 
 -- send private message
@@ -29,7 +37,7 @@ function RDKP:OnCommReceived(prefix, message, distribution, sender)
     -- ignore messages we have sent
     if RDKP.CURRENT_PLAYER == sender then return end
 
-    RDKP:Debug("Comm Received // ".. message .. " // from ".. sender);
+    RDKP:Debug("Comm Received // " .. message .. " // from " .. sender);
 
     local command, nextposition = RDKP:GetArgs(message, 1);
     -- if RDKP.Messages.Ping == command then

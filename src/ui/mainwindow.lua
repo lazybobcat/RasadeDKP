@@ -25,26 +25,26 @@ local function updateTree()
     local wlTitle = "En attente";
     local wlDisabled = true;
     if countWL > 0 then
-        wlTitle = wlTitle .." (" .. countWL .. ")";
+        wlTitle = wlTitle .. " (" .. countWL .. ")";
         wlDisabled = false;
     end
 
-    tree = {{
+    tree = { {
         value = "waitingList",
         text = wlTitle,
         icon = "Interface\\Icons\\Inv_misc_scrollunrolled04b",
         disabled = wlDisabled,
-      }, {
+    }, {
         value = "raid",
         text = "Raid",
         icon = "Interface\\Icons\\SPELL_SHADOW_SKULL",
         disabled = not IsInRaid(),
-      }, {
+    }, {
         value = "roster",
         text = "Joueurs",
         icon = "Interface\\Icons\\INV_Drink_05",
         children = playersTree
-    }};
+    } };
 end
 RDKP.Database:RegisterPlayersUpdated("mainwindow_updateTree", function(event, players)
     updateTree();
@@ -57,7 +57,7 @@ local function createTreeGroup(parent)
     treeGroup:SetFullHeight(true);
     treeGroup:SetFullWidth(true);
     treeGroup:SetCallback("OnGroupSelected", function(container, event, group)
-        local groupTitle = {strsplit("\001", group)};
+        local groupTitle = { strsplit("\001", group) };
         treeSelectedItem = group;
         container:ReleaseChildren();
         if "waitingList" == group then
@@ -72,11 +72,11 @@ local function createTreeGroup(parent)
                 treeGroup:SelectByPath("roster", playerId);
             end);
         elseif group:find("roster", 1, true) and #groupTitle > 1 then
-            local groupTitle = {strsplit("\001", group)};
+            local groupTitle = { strsplit("\001", group) };
             local id = tonumber(groupTitle[2]);
             local player = RDKP.Database:FindPlayer(id);
             if nil ~= player then
-                RDKP:Debug("Player selected: "..player.name);
+                RDKP:Debug("Player selected: " .. player.name);
                 RDKP:CreatePlayerDetails(player, container);
             end
         else
@@ -165,12 +165,13 @@ function InitMainWindow()
         RDKP:OpenExportWindow(csv);
     end);
 
-    -- local resetDB = AceGUI:Create("Button");
-    -- resetDB:SetText("Reset DB");
-    -- resetDB:SetCallback("OnClick", function()
-    --     RDKP.Database:ResetPlayerDatabase();
-    -- end);
-    -- topGroup:AddChild(resetDB);
+    local resetDB = CreateFrame("Button", "RDKPReset", frame.frame, "UIPanelButtonTemplate");
+    resetDB:SetText("Reset DB");
+    resetDB:SetPoint("TOPLEFT", 275, -30);
+    resetDB:SetHeight(24);
+    resetDB:SetScript("OnClick", function()
+        RDKP.Database:ResetPlayerDatabase();
+    end);
 
     local mainGroup = AceGUI:Create("SimpleGroup");
     mainGroup:SetFullHeight(true);

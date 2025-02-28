@@ -1,6 +1,7 @@
-## Interface: 100200
+## Interface: 110100
 
 ## Title: RasadeDKP
+## Category: Rasade
 ## Notes: DKP management tool
 ## Notes-frFR: Addon de gestion des DKP
 ## Author: Tzinn

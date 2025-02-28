@@ -54,7 +54,6 @@
         "UNITNAME_TITLE_MINION",
         "StaticPopup1",
         "PLAYER",
-        "GetCursorPosition",
         "UISpecialFrames",
         "BUFF_MAX_DISPLAY",
         "FauxScrollFrame_Update",
@@ -71,6 +70,30 @@
         "HelpPlate_IsShowing",
         "CooldownFrame_Set",
         "DK",
-        "AddonCompartmentFrame"
+        "AddonCompartmentFrame",
+        "UIParent",
+        "GameTooltip",
+        "Minimap",
+        "WOW_PROJECT_ID",
+        "WOW_PROJECT_MAINLINE",
+        "WorldMapFrame",
+        "CreateFramePool",
+        "MapCanvasDataProviderMixin",
+        "MapCanvasPinMixin"
+    ],
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.runtime.builtin": {
+        "basic": "disable",
+        "debug": "disable",
+        "io": "disable",
+        "math": "disable",
+        "os": "disable",
+        "package": "disable",
+        "string": "disable",
+        "table": "disable",
+        "utf8": "disable"
+    },
+    "Lua.workspace.library": [
+        "~\\.vscode\\extensions\\ketho.wow-api-0.18.2\\Annotations"
     ]
 }
