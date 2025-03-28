@@ -16,8 +16,10 @@ end)
 frame:SetLayout("Flow");
 frame:Hide();
 
----@type {bid: Bid, character: string, item: string, check: any} | nil
+---@type {bid: Bid, character: string, item: string, check: boolean, uiCheckbox: any} | nil
 local currentTrade = nil;
+---@type {bid: Bid, character: string, item: string, check: boolean, uiCheckbox: any}[]
+local allTrades = {};
 
 -- frame layout
 local container = AceGUI:Create("SimpleGroup");
@@ -39,11 +41,13 @@ validateButton:SetPoint("BOTTOMRIGHT", frame.frame, "BOTTOMRIGHT", -15, 20);
 
 local function RefreshTradesList()
     scrollFrame:ReleaseChildren();
-    for _, trade in ipairs(RDKP.db.global.trades) do
-        trade.check = AceGUI:Create("CheckBox");
-        trade.check:SetRelativeWidth(0.1);
-        trade.check:SetValue(false);
-        scrollFrame:AddChild(trade.check);
+    for _, trade in ipairs(allTrades) do
+        ---@type {bid: Bid, character: string, item: string, check: any}
+        local check = AceGUI:Create("CheckBox");
+        check:SetRelativeWidth(0.1);
+        check:SetValue(false);
+        scrollFrame:AddChild(check);
+        trade.uiCheckbox = check;
 
         local playerName = AceGUI:Create("Label");
         playerName:SetRelativeWidth(0.3);
@@ -85,25 +89,25 @@ end
 ---@param bid Bid
 ---@param item string
 RDKP.Database:RegisterBidWon("tradeswindow_bidwon", function(event, bid, item)
-    ---@type {bid: Bid, character: string, item: string, check: any}
+    ---@type {bid: Bid, character: string, item: string, check: boolean}
     local trade = {
         bid = bid,
         character = string.match(bid.character, "(.*)-.*"),
         item = item,
-        check = nil,
+        check = false,
     }
-    table.insert(RDKP.db.global.trades, trade);
+    table.insert(allTrades, trade);
     RefreshTradesList();
 end);
 
 -- on click, remove all checked trades from the list
 validateButton:SetScript("OnClick", function()
     local trades = {};
-    for _, trade in ipairs(RDKP.db.global.trades) do
-        if not trade.check:GetValue() then
+    for _, trade in ipairs(allTrades) do
+        if not trade.check then
             table.insert(trades, trade);
         end
     end
-    RDKP.db.global.trades = trades;
+    allTrades = trades;
     RefreshTradesList();
 end);

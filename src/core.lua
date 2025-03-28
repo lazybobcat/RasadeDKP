@@ -120,6 +120,7 @@ function RDKP:OnEnable()
     -- say hello
     RDKP.Database:Load();
     RDKP:Print(L["ADDON_MOTD"]);
+    RDKP.db.global.trades = nil;
 
     -- if "dev" == RDKP.version then
     --     RDKP.Database:AddPlayer("Shadz", 24, {"Shadz-Archimonde"});
