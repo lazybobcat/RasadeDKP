@@ -1,5 +1,9 @@
 # Changelog
 
+## [11.1.0.3] - 2025-03-28
+- fix: issue with db file getting large by remove trades from it
+
+
 ## [11.1.0.2] - 2025-02-28
 - add command to reset the player database
 
